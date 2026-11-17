@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 自适应图标的背景色：和立绘最外圈的海蓝一致，圆角被裁掉时不会露出别的颜色 -->
+    <color name="ic_launcher_bg">#0A2E7E</color>
+    <color name="page_bg">#F2F7FE</color>
+    <color name="brand">#0B62D8</color>
+</resources>

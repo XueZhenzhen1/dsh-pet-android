@@ -1,0 +1,30 @@
+# 构建产物
+build/
+dist/
+*.apk
+*.aab
+
+# 签名材料：绝对不要提交
+*.jks
+*.keystore
+*.p12
+*.pfx
+
+# 本机 SDK / JDK，仓库里不带（体积太大）
+toolchain/
+local.properties
+
+# 日志与临时文件
+*.log
+st.json
+anim-work/
+anim-probe/
+__pycache__/
+*.pyc
+
+# 编辑器
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db

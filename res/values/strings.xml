@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">鱼球</string>
+    <string name="guard_summary">让鱼球在后台被清理后自动回来</string>
+    <string name="guard_desc">鱼球用这个服务做保活：每 30 秒检查一次悬浮球还在不在，不在就拉起来。它不读取屏幕内容，也不记录你的操作。</string>
+</resources>

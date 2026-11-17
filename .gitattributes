@@ -1,0 +1,12 @@
+* text=auto
+
+# 脚本统一 LF：CRLF 的 shebang 在 Linux/macOS 上跑不了
+*.sh   text eol=lf
+*.py   text eol=lf
+*.java text eol=lf
+*.xml  text eol=lf
+*.cmd  text eol=crlf
+
+*.png binary
+*.webp binary
+*.apk binary
