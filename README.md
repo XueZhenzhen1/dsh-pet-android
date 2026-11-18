@@ -13,6 +13,13 @@
 - 不依赖 Gradle、不用 AndroidX，全部控件自绘
 - 单个 APK 约 260 KB，无第三方运行时依赖
 
+## 下载
+
+[**→ 最新 Release**](https://github.com/XueZhenzhen1/dsh-pet-android/releases/latest)（`yuqiu-v4.2-oss.apk`，258 KB）
+
+这个包用的是仓库里的**占位美术**，不含任何第三方角色素材，装完需要自己填电脑地址。
+想换成自己的角色，见下面「换成你自己的角色」。
+
 ---
 
 ## 它能做什么
@@ -95,6 +102,23 @@ ANDROID_JAR=$ANDROID_HOME/platforms/android-34/android.jar \
 
 **签名**：第一次构建会在仓库根目录生成 `release.jks`，口令随机打印在终端里——请自己存好，
 换了口令等于换了签名，覆盖安装会冲突。`.gitignore` 已经把 `*.jks` 排除，别提交。
+
+---
+
+## 换成你自己的角色
+
+仓库里只有占位美术（`tools/make-placeholder-art.py` 用 PIL 画的气泡鱼），两处可以换：
+
+```bash
+# 1) 图标：正方形插画，默认内缩 104px 去掉圆角/描边，一次生成全套
+python tools/make-icons.py --src 你的图.png --inset 104
+
+# 2) 立绘：直接覆盖这张，透明底、角色坐底居中
+#    res/drawable-nodpi/pet_main.png
+```
+
+`pet_main.png` 只是**离线兜底**用的：连上电脑后，悬浮球会用插件里的 `main-character.png`，
+所以真正决定长相的是电脑端那套素材。表情和动作同理，都来自插件，不需要打进 APK。
 
 ---
 
