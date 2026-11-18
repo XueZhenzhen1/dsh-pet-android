@@ -5,6 +5,9 @@
 
 > 这是一个**客户端**：宠物本体、动作素材、说话内容都在电脑上的 dsh + dsh-pet 插件里。
 > 手机端负责渲染、交互，以及在本机把动作真正播出来。
+>
+> **非官方**：本项目由第三方开发，不是 dsh-pet 作者的作品，也未获其背书。
+> 仓库不含上游的任何素材（角色、动作、表情），素材来源与授权边界见 [NOTICE.md](NOTICE.md)。
 
 - Android 8.0+（minSdk 26，targetSdk 34）
 - 不依赖 Gradle、不用 AndroidX，全部控件自绘
@@ -44,6 +47,11 @@ dsh web --no-open
 
 > `--no-open` 是必须的：不带它，`dsh web` 会去调系统浏览器（某些策略下会卡在启动阶段，
 > 进程活着但一个端口都不监听）。
+
+素材从哪来（这一步容易误会）：dsh-pet 的**代码**在 GitHub 上，但 56 MB 的动作 webm、
+表情、立绘、字体这些**不进 git 仓库**——仓库存的是生成脚本，视频源放在该仓库的
+GitHub Releases 里。日常 `dsh plugin ... add dsh-pet` 装的是 npm 包，素材已随包带上，
+落在 `node_modules/dsh-pet/assets/`。本项目的转换脚本读的就是这一份。详见 [NOTICE.md](NOTICE.md)。
 
 手机怎么连到电脑：**Tailscale**（跨网络、免公网端口）或同一个局域网。验证一下：
 
@@ -142,8 +150,8 @@ dsh-pet/assets/webm/<动作名>.webm        640×360, VP9+alpha, ~10s
   `b & 0xff`——Java 的 byte 有符号，不掩码会输出 `ffffffab` 这种。
 - **API < 28 没有 `AnimatedImageDrawable`**，自动降级成程序化形变（挤压、旋转、跳），
   幅度刻意做大，不让用户觉得「点了没反应」。
-- 素材不随仓库分发。首次点某个动作会现下载（局域网 0.3~1s），之后是本机文件；
-  打开动作列表时预取当前分类前 6 段，流量网络下不预取。
+- 素材不随仓库分发（版权归上游，见 [NOTICE.md](NOTICE.md)）。首次点某个动作会现下载
+  （局域网 0.3~1s），之后是本机文件；打开动作列表时预取当前分类前 6 段，流量网络下不预取。
 
 先转一遍：
 
@@ -209,11 +217,12 @@ Issue 和 PR 都欢迎。改交互行为前请先改 [INTERACTION.md](INTERACTIO
 
 ## 许可证
 
-[MIT](LICENSE)。
+本仓库的代码是 [MIT](LICENSE)；动作素材、表情、角色形象的版权属于
+[dsh-pet](https://github.com/PC2005-cloud/dsh-pet)（MIT，Copyright © 2026 PC2005-cloud），
+本项目**不重复分发**这些资源。完整的第三方说明、素材的分发方式、以及「自己打包含素材的
+APK 时要遵守什么」都写在 [NOTICE.md](NOTICE.md) 里，打包分发前请先读一遍。
 
-动作素材、表情、宠物设定来自 [dsh-pet](https://github.com/PC2005-cloud/dsh-pet)（MIT，
-Copyright © 2026 PC2005-cloud），本仓库不重复分发这些资源。移动端入口由
-[@restregular/dsh-pocket](https://www.npmjs.com/package/@restregular/dsh-pocket) 提供。
+移动端入口由 [@restregular/dsh-pocket](https://www.npmjs.com/package/@restregular/dsh-pocket) 提供。
 
 ---
 
@@ -226,3 +235,7 @@ alpha channel), and mirrors speech / expressions / actions from the desktop over
 `dsh-pocket`. Requires dsh + dsh-pet + dsh-pocket on a PC reachable via Tailscale or LAN.
 No Gradle, no AndroidX — `./build.sh` builds a ~260 KB APK with plain SDK tools.
 MIT licensed. Placeholder art only; bring your own character.
+
+**Unofficial project.** Not affiliated with, or endorsed by, the dsh-pet author. No upstream
+assets (character art, animation clips, memes) are redistributed here — see [NOTICE.md](NOTICE.md)
+for where those assets come from and what you must carry along if you bundle them.
