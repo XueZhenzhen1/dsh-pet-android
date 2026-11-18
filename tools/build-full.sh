@@ -18,8 +18,12 @@ cd "$(dirname "$0")/.."
 ART="${ART:-art}"
 [ -d "$ART" ] || { echo "没有美术目录：$ART"; exit 1; }
 
-# 备份 res，构建结束（无论成功失败）都还原，避免真美术被误提交
-BAK="$(mktemp -d)"
+# 备份 res，构建结束（无论成功失败）都还原，避免真美术被误提交。
+# 用仓库内的相对路径：Windows 上对 /tmp 这种绝对路径调用 rm 会被安全策略拦掉，
+# 备份目录留在仓库里反而更稳（已被 .gitignore 排除）。
+BAK=".res-backup"
+rm -rf "$BAK"
+mkdir -p "$BAK"
 cp -a res/. "$BAK/"
 restore() {
   rm -rf res
