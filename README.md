@@ -241,10 +241,14 @@ Issue 和 PR 都欢迎。改交互行为前请先改 [INTERACTION.md](INTERACTIO
 
 ## 许可证
 
-本仓库的代码是 [MIT](LICENSE)；动作素材、表情、角色形象的版权属于
-[dsh-pet](https://github.com/PC2005-cloud/dsh-pet)（MIT，Copyright © 2026 PC2005-cloud），
-本项目**不重复分发**这些资源。完整的第三方说明、素材的分发方式、以及「自己打包含素材的
-APK 时要遵守什么」都写在 [NOTICE.md](NOTICE.md) 里，打包分发前请先读一遍。
+本仓库的**代码**是 [MIT](LICENSE)。上游 [dsh-pet](https://github.com/PC2005-cloud/dsh-pet)
+的**素材不走 MIT**：角色形象（社区二创的 DeepSeek「大肥鱼」/ 鲸鱼娘）按
+[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans) 授权——
+**署名 · 非商业 · 相同方式共享**，原作者明确「不可以以任何形式商业化」。
+
+本项目**不重复分发**这些素材，但会读取你本机已装的那一份。完整的形象出处、动画是怎么
+从 AI 绿幕视频抠出来的、以及「自己打包含素材的 APK 时要遵守什么」都写在
+[NOTICE.md](NOTICE.md) 里，打包分发前请先读一遍。
 
 移动端入口由 [@restregular/dsh-pocket](https://www.npmjs.com/package/@restregular/dsh-pocket) 提供。
 
