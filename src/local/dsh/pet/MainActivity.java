@@ -611,14 +611,20 @@ public class MainActivity extends Activity {
     private View buildAbout() {
         LinearLayout col = Ui.column(this);
         col.setGravity(android.view.Gravity.CENTER_HORIZONTAL);
-        TextView v = Ui.text(this, "鱼球 4.0 · dsh-pet 0.4.9", 11f, Ui.INK3);
-        col.addView(v);
-        TextView v2 = Ui.text(this, "本机悬浮 + 你电脑上的 DeepSeek Harness", 10.5f, Ui.INK4);
-        LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        lp2.topMargin = Ui.dp(this, 4);
-        col.addView(v2, lp2);
+        col.addView(Ui.text(this, "鱼球 4.2 · dsh-pet 0.4.9", 11f, Ui.INK3));
+
+        addAboutLine(col, "本机悬浮 + 你电脑上的 DeepSeek Harness", 10.5f, 4);
+        // 角色形象按 CC BY-NC-SA 4.0 授权，要求保留署名：这两行别删
+        addAboutLine(col, "形象 大肥鱼（鲸鱼娘）· 设计 @上善无形 / @ZipZipPipe", 10f, 10);
+        addAboutLine(col, "素材 CC BY-NC-SA 4.0 · github.com/PC2005-cloud/dsh-pet", 10f, 3);
         return col;
+    }
+
+    private void addAboutLine(LinearLayout parent, String s, float sp, int topDp) {
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.topMargin = Ui.dp(this, topDp);
+        parent.addView(Ui.text(this, s, sp, Ui.INK4), lp);
     }
 
     /* ============================ 行为 ============================ */

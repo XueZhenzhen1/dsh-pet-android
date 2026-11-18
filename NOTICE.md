@@ -62,7 +62,11 @@
 
 - `npm i dsh-pet` 之后素材在 `node_modules/dsh-pet/assets/`，本项目只**读取本机这一份**，
   用 `tools/convert-anims.py` 转成本机能播的动图 WebP，产物落在 `~/.dsh/dsh-pet/pic/anim/`。
-- **本仓库不包含任何 dsh-pet 素材**，因此本仓库自身只需遵守 MIT。
+- **本仓库不含 dsh-pet 分发的那些文件**（`assets/webm`、`assets/memes`、`main-character.png`），
+  只读取你本机已装的那一份。
+- 但本仓库的 `art/` 目录带了一套**自己生成的二创美术**（图标与立绘），它按
+  [CC BY-NC-SA 4.0](art/LICENSE) 发布，和代码的 MIT 是并列关系。App 内「关于」页
+  保留了署名，这是协议要求，改动时别删。
 - 若你把转换后的 WebP、表情、立绘打进 APK 再分发：这些文件仍受上面的形象授权约束——
   **必须署名（上游仓库 + 形象原作者）+ 不得商用 + 衍生物按相同协议共享**。
 - 上游的「二创约定」：基于 dsh-pet 的衍生 / 改版 / 换皮作品，在 GitHub 仓库、产品官网等公开渠道

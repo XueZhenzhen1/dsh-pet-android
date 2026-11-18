@@ -7,7 +7,8 @@
 > 手机端负责渲染、交互，以及在本机把动作真正播出来。
 >
 > **非官方**：本项目由第三方开发，不是 dsh-pet 作者的作品，也未获其背书。
-> 仓库不含上游的任何素材（角色、动作、表情），素材来源与授权边界见 [NOTICE.md](NOTICE.md)。
+> 仓库不带上游分发的动作与表情（56 MB webm 走 npm 包），只带了一套 `art/` 角色美术，
+> 授权与素材来源见 [NOTICE.md](NOTICE.md)。
 
 - Android 8.0+（minSdk 26，targetSdk 34）
 - 不依赖 Gradle、不用 AndroidX，全部控件自绘
@@ -15,10 +16,19 @@
 
 ## 下载
 
-[**→ 最新 Release**](https://github.com/XueZhenzhen1/dsh-pet-android/releases/latest)（`yuqiu-v4.2-oss.apk`，258 KB）
+两个包，功能完全一样，区别只在美术：
 
-这个包用的是仓库里的**占位美术**，不含任何第三方角色素材，装完需要自己填电脑地址。
-想换成自己的角色，见下面「换成你自己的角色」。
+| 包 | 美术 | 体积 |
+|---|---|---|
+| [**完整版** `v4.2-full`](https://github.com/XueZhenzhen1/dsh-pet-android/releases/tag/v4.2-full) | 大肥鱼（鲸鱼娘）真美术，**仅限非商业**（CC BY-NC-SA 4.0） | 1.2 MB |
+| [**轻量版** `v4.2`](https://github.com/XueZhenzhen1/dsh-pet-android/releases/tag/v4.2) | 代码画的占位气泡鱼，纯 MIT | 258 KB |
+
+两个包签名相同，可以互相覆盖安装；都**不预置**服务器地址，首次打开自己填。
+
+> 完整版的美术来自社区二创形象，按 CC BY-NC-SA 4.0 授权：**署名 · 非商业 · 相同方式共享**。
+> 商用请用轻量版，或自己换一套美术（见下节）。
+
+想自己构建完整版：`./tools/build-full.sh`（美术在 `art/`）。
 
 ---
 
@@ -107,18 +117,32 @@ ANDROID_JAR=$ANDROID_HOME/platforms/android-34/android.jar \
 
 ## 换成你自己的角色
 
-仓库里只有占位美术（`tools/make-placeholder-art.py` 用 PIL 画的气泡鱼），两处可以换：
+仓库里有两套美术，二选一：
+
+| 目录 | 内容 | 授权 | 谁在用 |
+|---|---|---|---|
+| `res/` | `tools/make-placeholder-art.py` 画的气泡鱼 | MIT | 轻量版、`./build.sh` |
+| `art/` | 大肥鱼（鲸鱼娘）真美术 | CC BY-NC-SA 4.0 | 完整版、`./tools/build-full.sh` |
+
+`build-full.sh` 会把 `art/` 临时覆盖到 `res/`，编完自动还原，不会把真美术混进占位版。
+
+换角色有三种做法：
 
 ```bash
-# 1) 图标：正方形插画，默认内缩 104px 去掉圆角/描边，一次生成全套
-python tools/make-icons.py --src 你的图.png --inset 104
+# 1) 替换 art/ 里的同名文件（最省事）
+#    art/drawable-nodpi/pet_main.png       立绘：透明底、角色贴底居中
+#    art/mipmap-*/ic_launcher*.png         图标五档
+#    art/drawable-nodpi/ic_launcher_fg.png adaptive 前景
 
-# 2) 立绘：直接覆盖这张，透明底、角色坐底居中
-#    res/drawable-nodpi/pet_main.png
+# 2) 从一张正方形插画重新生成全套图标，再覆盖 art/
+python tools/make-icons.py --src 你的图.png --inset 104 --out art/
+
+# 3) 美术放别处，构建时指过去
+ART=~/my-character ./tools/build-full.sh
 ```
 
 `pet_main.png` 只是**离线兜底**用的：连上电脑后，悬浮球会用插件里的 `main-character.png`，
-所以真正决定长相的是电脑端那套素材。表情和动作同理，都来自插件，不需要打进 APK。
+所以真正决定长相的还是电脑端那套素材。表情和动作同理，都来自插件，不需要打进 APK。
 
 ---
 
@@ -216,9 +240,11 @@ src/local/dsh/pet/
   Keeper.java / PetWatchdog.java / PetGuard.java / BootReceiver.java   保活四件套
   Ui.java / Glyph.java     自绘设计系统与 18 个线性图标
 res/                       图标、立绘、无障碍配置、文案
+tools/build-full.sh        完整版构建：art/ 临时覆盖 res/ 后编译，结束自动还原
 tools/convert-anims.py     webm(VP9+alpha) → 逐帧 WebP
 tools/make-icons.py        把自己的方形插画裁成全套图标
-tools/make-placeholder-art.py  仓库自带的占位美术（纯代码画，无版权问题）
+tools/make-placeholder-art.py  仓库自带的占位美术（纯代码画，MIT）
+art/                       完整版用的角色美术（CC BY-NC-SA 4.0，署名见 art/README.md）
 ```
 
 ---
@@ -241,14 +267,19 @@ Issue 和 PR 都欢迎。改交互行为前请先改 [INTERACTION.md](INTERACTIO
 
 ## 许可证
 
-本仓库的**代码**是 [MIT](LICENSE)。上游 [dsh-pet](https://github.com/PC2005-cloud/dsh-pet)
-的**素材不走 MIT**：角色形象（社区二创的 DeepSeek「大肥鱼」/ 鲸鱼娘）按
-[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans) 授权——
-**署名 · 非商业 · 相同方式共享**，原作者明确「不可以以任何形式商业化」。
+**代码**：[MIT](LICENSE)，包括 `res/` 下由 `tools/make-placeholder-art.py` 生成的占位美术。
 
-本项目**不重复分发**这些素材，但会读取你本机已装的那一份。完整的形象出处、动画是怎么
-从 AI 绿幕视频抠出来的、以及「自己打包含素材的 APK 时要遵守什么」都写在
-[NOTICE.md](NOTICE.md) 里，打包分发前请先读一遍。
+**`art/` 下的角色美术**：[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans)，
+见 [art/LICENSE](art/LICENSE)。角色是社区二创的 DeepSeek「大肥鱼 / 鲸鱼娘」，**非官方形象**：
+
+- 默认授权：**署名 · 非商业 · 相同方式共享**，原作者明确「不可以以任何形式商业化」
+- 署名对象：上游 [dsh-pet](https://github.com/PC2005-cloud/dsh-pet)、原型 [@上善无形](https://space.bilibili.com/4456176)、
+  DeepSeek 版设计 [@ZipZipPipe](https://space.bilibili.com/4168597)
+- App 内「关于」页也保留了这段署名，这是 CC 协议的要求
+
+**上游素材**（动作 webm、表情、立绘）本项目不重复分发，只读取你本机已装的那一份；
+完整的形象出处、动画从 AI 绿幕视频抠出来的链路、以及打包分发时的义务，都在
+[NOTICE.md](NOTICE.md) 里。
 
 移动端入口由 [@restregular/dsh-pocket](https://www.npmjs.com/package/@restregular/dsh-pocket) 提供。
 
